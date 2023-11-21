@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>terrian edit</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link type="text/css" rel="stylesheet" href="css/main.css" />
+    <style>
+      body {
+        background-color: #f0f0f0;
+        color: #444;
+      }
+      a {
+        color: #08f;
+      }
+
+      .items {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        background-color: white;
+        width: 72px;
+      }
+
+      .items p {
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      .items .select {
+        border: 4px solid gray;
+        width: 64px;
+        height: 64px;
+        background-image: url('data:image/png;base64,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');
+      }
+
+      .items  .on{
+        border-color: chocolate;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div class="items">
+      <p>物品栏</p>
+      <div class="select"></div>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./src/three.module.js",
+          "three/addons/": "./source/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      //perlin噪音
+      //import {ImprovedNoise} from 'three/addons/math/ImprovedNoise.js'
+      let container;
+
+      let camera, scene, renderer;
+      let controls;
+      let plane, mesh;
+      let pointer = new THREE.Vector2(0.0, 0.0),
+        isHit = false,
+        isShiftDown = false,
+        isAltDown = false;
+
+      let FBX = new FBXLoader();
+
+      let perlinGen = makenoise();
+
+      let raycaster = new THREE.Raycaster();
+
+      const Width = 512,
+        Depth = 512,
+        HalfWidth = Width / 2,
+        HalfDepth = Depth / 2;
+
+      let helper,spritey;
+      let Towers=[]
+      let noiseMap;
+      initItem()
+      start();
+      animate();
+
+
+      function initItem(){
+        let items = document.querySelector(".items")
+        let select = items.querySelector(".select")
+        select.addEventListener("click",function(){
+          isHit=!isHit;
+          if(isHit)
+            select.className+=" on"
+          else 
+            select.className=select.className.replace("on","");
+        },false)
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        render();
+        //stats.update();
+      }
+
+      function render() {
+        renderer.render(scene, camera);
+      }
+
+      function start() {
+        container = document.getElementById("container");
+        container.innerHTML = "";
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          10,
+          20000
+        );
+
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.minDistance = 1000;
+        controls.maxDistance = 10000;
+        controls.maxPolarAngle = Math.PI / 2;
+
+        camera.position.y = 4000;
+        camera.position.x = 2000;
+        controls.update();
+
+        noiseMap = heightmap(Width, Depth);
+
+        const geometry = new THREE.PlaneGeometry(
+          10000,
+          10000,
+          Width - 1,
+          Depth - 1
+        );
+        geometry.rotateX(-Math.PI / 2);
+
+        const vertices = geometry.attributes.position.array;
+
+        for (let i = 0, j = 0, l = vertices.length; i < l; i++, j += 3) {
+          //more smooth
+          let f = noiseMap[i] / 0xff;
+          vertices[j + 1] = f * f * (3 - 2 * f) * 0xff * 10;
+
+          //vertices[j + 1] = noiseMap[i] * 10;
+        }
+
+        let texture = new THREE.CanvasTexture(
+          generateTexture(noiseMap, Width, Depth)
+        );
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        mesh = new THREE.Mesh(
+          geometry,
+          new THREE.MeshBasicMaterial({ map: texture })
+        );
+        scene.add(mesh);
+
+        let cyli = new THREE.CylinderGeometry(100, 20, 2, 12);
+        helper = new THREE.Mesh(
+          cyli,
+          new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+        );
+        scene.add(helper);
+
+        
+
+        window.addEventListener("resize", onWindowResize);
+        container.addEventListener("pointermove", onPointerMove);
+        container.addEventListener("pointerdown",onPointerDown);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function generateTexture(data, width, height) {
+        let context, image, imageData, shade;
+
+        const vector3 = new THREE.Vector3(0, 0, 0);
+
+        const sun = new THREE.Vector3(1, 1, 1);
+        sun.normalize();
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        context = canvas.getContext("2d");
+        context.fillStyle = "#000";
+        context.fillRect(0, 0, width, height);
+
+        image = context.getImageData(0, 0, canvas.width, canvas.height);
+        imageData = image.data;
+
+        let nd = simpleNormal(data);
+
+        for (let i = 0, j = 0; i < imageData.length; i += 4, j++) {
+          vector3.x = nd[i];
+          vector3.y = nd[i + 1];
+          vector3.z = nd[i + 2];
+          shade = vector3.dot(sun);
+
+          if (data[j] > 128) {
+            imageData[i] = imageData[i + 1] = imageData[i + 2] = 0xee;
+          } else {
+            imageData[i] = (96 + shade * 128) * (0.5 + data[j] * 0.007);
+            imageData[i + 1] = (32 + shade * 96) * (0.5 + data[j] * 0.007);
+            imageData[i + 2] = shade * 96 * (0.5 + data[j] * 0.007);
+          }
+
+          //black white
+          // imageData[i]=shade*0xff
+          // imageData[i+1]=shade*0xff
+          // imageData[i+2]=shade*0xff
+
+          //normal
+          // 	 imageData[ i ] = vector3.x * 0xff;
+          // 	 imageData[ i + 1 ] = vector3.y* 0xff;
+          // 	 imageData[ i + 2 ] = vector3.z* 0xff;
+        }
+
+        context.putImageData(image, 0, 0);
+
+        return canvas;
+      }
+
+      
+
+      function simpleNormal(noiseMap) {
+        let data = new Array(Width * Depth * 4);
+
+        /*
+
+			vec3 calcNormal( in vec3 pos )
+			{
+				vec3 e = vec3(0.01,0.0,0.0);
+				return normalize( vec3(fbmd(pos.xz-e.xy).x - fbmd(pos.xz+e.xy).x,
+									2.0*e.x,
+									fbmd(pos.xz-e.yx).x - fbmd(pos.xz+e.yx).x ) );
+			}
+
+		*/
+
+        let p = new THREE.Vector3(0, 0, 0);
+        let length = data.length;
+
+        for (let i = 0, j = 0; i < length; i += 4, j++) {
+          //left right;
+          p.x = noiseMap[j - 2] - noiseMap[j + 2];
+          p.y = 2;
+          //before after;
+          p.z = noiseMap[j - Width * 2] - noiseMap[j + Width * 2];
+          p.normalize();
+
+          data[i] = p.x;
+          data[i + 1] = p.y;
+          data[i + 2] = p.z;
+        }
+
+        return data;
+      }
+
+      function heightmap(width, height) {
+        const size = width * height,
+          data = new Uint8Array(size);
+
+        let quality = 1;
+
+        for (let j = 0; j < 4; j++) {
+          for (let i = 0; i < size; i++) {
+            let x = i % width,
+              y = Math.floor(i / width);
+            let p = Math.abs(fbm(x / quality, y / quality, 8) * quality * 2);
+
+            data[i] += p;
+          }
+
+          quality *= 5;
+        }
+
+        return data;
+      }
+
+      function makenoise() {
+        const _p = [
+          151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225,
+          140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148,
+          247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32,
+          57, 177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68,
+          175, 74, 165, 71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111,
+          229, 122, 60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245, 40, 244,
+          102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208,
+          89, 18, 169, 200, 196, 135, 130, 116, 188, 159, 86, 164, 100, 109,
+          198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38, 147,
+          118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182,
+          189, 28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70,
+          221, 153, 101, 155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108,
+          110, 79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228, 251,
+          34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235,
+          249, 14, 239, 107, 49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204,
+          176, 115, 121, 50, 45, 127, 4, 150, 254, 138, 236, 205, 93, 222, 114,
+          67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180,
+        ];
+
+        for (let i = 0; i < 256; i++) {
+          _p[256 + i] = _p[i];
+        }
+
+        function fade(t) {
+          return t * t * t * (t * (t * 6 - 15) + 10);
+        }
+
+        function lerp(t, a, b) {
+          return a + t * (b - a);
+        }
+
+        function grad(hash, x, y, z) {
+          const h = hash & 15;
+          const u = h < 8 ? x : y,
+            v = h < 4 ? y : h == 12 || h == 14 ? x : z;
+          return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
+        }
+
+        return function noise2d(x, y) {
+          const floorX = Math.floor(x),
+            floorY = Math.floor(y);
+          //0xff mask
+          const X = floorX & 255,
+            Y = floorY & 255;
+
+          x = x - floorX;
+          y = y - floorY;
+          //side
+          const xMinus1 = x - 1,
+            yMinus1 = y - 1;
+          //conner
+          let A = _p[X] + Y,
+            AA = _p[A],
+            AB = _p[A + 1],
+            B = _p[X + 1] + Y,
+            BA = _p[B],
+            BB = _p[B + 1];
+
+          //smooth linear
+          const u = fade(x),
+            v = fade(y);
+
+          return lerp(
+            v,
+            lerp(u, grad(_p[AA], x, y, 0), grad(_p[BA], xMinus1, y, 0)),
+            lerp(
+              u,
+              grad(_p[AB], x, yMinus1, 0),
+              grad(_p[BB], xMinus1, yMinus1, 0)
+            )
+          );
+        };
+      }
+
+      //分型
+      function fbm(x, y, octaves) {
+        let t = 0.0;
+        let amplitude = 1;
+        let freq = 1;
+        let lacunarity = 2.0; //步数
+        for (let k = 0; k < octaves; k++) {
+          t += perlinGen(x * freq, y * freq) * amplitude;
+          freq *= lacunarity;
+          amplitude *= 1 / octaves;
+        }
+
+        return t;
+      }
+
+      function createTextSprite(message,position){
+        let spritey = makeTextSprite(message, {
+          fontsize: 32,
+          
+          borderColor: { r: 0, g: 0, b: 255, a: 1.0 },
+        });
+        
+        
+        spritey.position.copy(position)
+        spritey.position.y+=80;
+        scene.add(spritey);
+      }
+
+      function makeLliderTower(position){
+        let cyli = new THREE.CylinderGeometry(50, 50, 100, 12);
+        let mesh = new THREE.Mesh(
+          cyli,
+          new THREE.MeshBasicMaterial({ color: 0x0000ff })
+        );
+
+        mesh.position.copy(position)
+        scene.add(mesh);
+        Towers.push(mesh);
+      }
+
+      function makeTextSprite(message, parameters) {
+        if (parameters === undefined) parameters = {};
+
+        var fontface = parameters.hasOwnProperty("fontface")
+          ? parameters["fontface"]
+          : "Arial";
+
+        var fontsize = parameters.hasOwnProperty("fontsize")
+          ? parameters["fontsize"]
+          : 18;
+
+        var borderThickness = parameters.hasOwnProperty("borderThickness")
+          ? parameters["borderThickness"]
+          : 4;
+
+        var borderColor = parameters.hasOwnProperty("borderColor")
+          ? parameters["borderColor"]
+          : { r: 0, g: 0, b: 0, a: 1.0 };
+
+        var backgroundColor = parameters.hasOwnProperty("backgroundColor")
+          ? parameters["backgroundColor"]
+          : { r: 255, g: 255, b: 255, a: 1.0 };
+
+        
+
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        context.font = "Bold " + fontsize + "px " + fontface;
+
+        
+        var metrics = context.measureText(message);
+        var textWidth = metrics.width;
+
+        canvas.width = textWidth+borderThickness*2;
+        context.font = "Bold " + fontsize + "px " + fontface;
+
+        context.fillStyle =
+          "rgba(" +
+          backgroundColor.r +
+          "," +
+          backgroundColor.g +
+          "," +
+          backgroundColor.b +
+          "," +
+          backgroundColor.a +
+          ")";
+        // border color
+        context.strokeStyle =
+          "rgba(" +
+          borderColor.r +
+          "," +
+          borderColor.g +
+          "," +
+          borderColor.b +
+          "," +
+          borderColor.a +
+          ")";
+
+        context.lineWidth = borderThickness;
+        roundRect(
+          context,
+          borderThickness / 2,
+          borderThickness / 2,
+          textWidth + borderThickness,
+          fontsize * 1.4 + borderThickness,
+          6
+        );
+        
+        context.fillStyle = "rgba(0, 0, 0, 1.0)";
+
+        context.fillText(message, borderThickness, fontsize + borderThickness);
+
+        
+        let texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        var spriteMaterial = new THREE.SpriteMaterial({
+          map: texture,
+          color:0xffffff
+        });
+        var sprite = new THREE.Sprite(spriteMaterial);
+        sprite.center.set( 0.0, 1.0 );
+				sprite.scale.set( canvas.width, canvas.height, 1 );
+
+        return sprite;
+
+        function roundRect(ctx, x, y, w, h, r) {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.lineTo(x + w - r, y);
+          ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+          ctx.lineTo(x + w, y + h - r);
+          ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+          ctx.lineTo(x + r, y + h);
+          ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+          ctx.lineTo(x, y + r);
+          ctx.quadraticCurveTo(x, y, x + r, y);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        }
+      }
+
+      function onPointerDown(event){
+
+        if(!isHit)
+          return;
+
+        pointer.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+        pointer.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+
+        const intersects = raycaster.intersectObject(mesh);
+
+        if (intersects.length > 0) {
+          let p = intersects[0].point;
+          console.log(p)
+          createTextSprite(`检查站：(${(p.x+1000)|0},${(p.y+1000)|0},${(p.z+1000)|0 })`,p)
+          makeLliderTower(p);
+        }
+      }
+
+      function onPointerMove(event) {
+        pointer.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+        pointer.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+
+        let intersectTower = raycaster.intersectObjects(Towers)
+
+        if(intersectTower.length > 0){
+          intersectTower.forEach(tower=>{
+            
+            tower.object.material.color.r=1;
+          })
+          return ;
+        }else{
+          Towers.forEach(object=>{
+            object.material.color.r=0;
+          })
+
+        }
+
+        const intersects = raycaster.intersectObject(mesh);
+
+        if (intersects.length > 0) {
+          helper.position.copy(intersects[0].point);
+          helper.position.z += 30;
+          helper.position.x-=90
+        }
+      }
+    </script>
+  </body>
+</html>
